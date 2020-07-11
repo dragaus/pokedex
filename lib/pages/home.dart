@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import './tipo.dart';
+
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -20,9 +22,7 @@ class _HomeState extends State<Home> {
         data.forEach((element) {
           types.add(element['name']);
         });
-        setState(() {
-          
-        });
+        setState(() {});
       });
     });
   }
@@ -36,9 +36,18 @@ class _HomeState extends State<Home> {
       body: ListView.builder(
         itemCount: types.length,
         itemBuilder: (ctx, index) => GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (ctx) => Tipo(types[index]),
+              ),
+            );
+          },
           child: ListTile(
-            title: Text(types[index]),
+            title: Hero(
+              tag: types[index],
+              child: Text(types[index]),
+            ),
           ),
         ),
       ),
